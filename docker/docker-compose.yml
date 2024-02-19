@@ -1,0 +1,21 @@
+services:
+  python_3_10:
+    stdin_open: true
+    build: .
+    shm_size: '16gb'
+    container_name: 'deepface'
+    working_dir: '/workspace'
+    tty: true
+    volumes:
+     - ../../src:/workspace
+     - ../../FRdataset:/workspace/FRdataset
+     - ../deepface:/workspace/deepface
+    deploy:
+      resources:
+        limits:
+          memory: 16gb
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
